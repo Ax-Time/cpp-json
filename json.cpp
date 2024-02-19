@@ -125,11 +125,21 @@ std::ostream& ValueNode<std::string>::dump(std::ostream& os) const {
     return os << "\"" << value_ << "\"";
 }
 
-// TODO: Don't remove whitespace if it's inside a string
 std::shared_ptr<Node> parse(std::string& str) {
-    str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+    std::ostringstream oss;
+
+    // Remove whitespace, but not inside strings
+    bool inside = false;
+    for (char ch : str) {
+        if (ch == '"') inside = !inside;
+        if (std::isspace(ch) && !inside) continue;
+        oss << ch;
+    }
+
+    std::string str_clean = oss.str();
+
     size_t index = 0;
-    return parseRecursively(str, index);
+    return parseRecursively(str_clean, index);
 }
 
 std::shared_ptr<Node> parseRecursively(std::string& json, size_t& index) {

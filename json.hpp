@@ -179,6 +179,10 @@ public:
             *std::static_pointer_cast<ValueNode<T>>(*node) = value;
             return *this;
         }
+        template <is_json_leaf_type T>
+        T as() {
+            return std::static_pointer_cast<ValueNode<T>>(*node)->value();
+        }
     };
 private:
     std::shared_ptr<Node> root;
@@ -195,6 +199,10 @@ public:
 public:
     View operator[] (std::string key);
     View operator[] (size_t idx);
+    template <is_json_leaf_type T>
+    T as() {
+        return std::static_pointer_cast<ValueNode<T>>(root)->value();
+    }
 public:
     friend std::ostream& operator<<(std::ostream& os, const Json& json) {
         return json.dump(os);

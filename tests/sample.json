@@ -1,0 +1,21 @@
+{
+    "name": "Jane",
+    "last_name": "Doe",
+    "age": 24,
+    "student": true,
+    "friends": [
+        "Bob", {
+            "name": "John",
+            "last_name": "Doe",
+            "age": 25,
+            "student": false,
+            "money": 100.34
+        }
+    ],
+    "address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": 62701
+    }
+}
